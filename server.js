@@ -15,9 +15,10 @@ const {port, hostname} = config;
 
 // load resources.json function
 const resources = path.join(__dirname, "data/resources.json");
-async function loadResources() {
-    const resourceData = await readFile(resources, "utf-8");
-    return JSON.parse(resourceData);
+// load any JSON data you want.
+async function loadData(data) {
+    const file_data = await readFile(data, "utf-8");
+    return JSON.parse(file_data);
 }
 
 
@@ -29,7 +30,7 @@ app.get("/", (req,res) => {
 // /resources node, that reads resources.JSON
 app.get("/resources", async (req,res) => {    
     try {
-        const json = await loadResources();
+        const json = await loadData(resources);
         res.json(json);
     } catch (error) {
         console.error(`Error reading ${resources}`, error);
