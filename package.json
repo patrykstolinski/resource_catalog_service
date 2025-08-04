@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Resource Catalog Microservice for Learning Path Generator",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
