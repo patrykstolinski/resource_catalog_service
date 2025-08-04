@@ -43,7 +43,7 @@ app.get("/resources/:id", async (req,res) => {
     try {        
         const json = await loadData(resources); // use load function to load resources 
         const resourceId = req.params.id;// req.params look for key (in this case "id") and assigns the value to resourceId        
-        const resource = json.find(item => item.id === resourceId);// arrow function - for each item, check if item.id is the same as resourceId        
+        const resource = json.find(item => item.id === resourceId);// arrow function - for each item, check if item.id is the same as resourceId         
         if(!resource) {
             return res.status(404).send(`Resource with ID "${resourceId}" not found.`)
         }; // if no resource found, throw 404        
