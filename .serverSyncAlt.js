@@ -1,24 +1,27 @@
 import express from "express";
 import path from "path";
-import { readFile } from 'fs/promises';
+import { readFileSync } from 'fs';
 import { fileURLToPath } from "url";
 
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const configPath = path.join(__dirname,"config.json");
+
+
+
+const data_file = path.join(__dirname, "data/resources.json");
 
 // read the config file and add the info to the variables
-const config = JSON.parse(await readFile(configPath, "utf-8"));
-const {port, hostname} = config;
-
-// load resources.json function
-const resources = path.join(__dirname, "data/resources.json");
-async function loadResources() {
-    const resourceData = await readFile(resources, "utf-8");
-    return JSON.parse(resourceData);
+const configPath = path.join(__dirname,"config.json");
+let config;
+try {
+    const configData = readFileSync(configPath, "utf-8");
+    config = JSON.parse(configData);
+} catch (error) {
+    console.error("Failed to load config", error.message);
 }
+const {port, hostname} = config;
 
 
 // main node
@@ -27,10 +30,13 @@ app.get("/", (req,res) => {
 });
 
 // /resources node, that reads resources.JSON
-app.get("/resources", async (req,res) => {    
+app.get("/resources", async (req,res) => {
+
+    
     try {
-        const json = await loadResources();
-        res.json(json);
+        const data = readFileSync(data_file, "utf-8");
+        const resources = JSON.parse(data);
+        res.json(resources);
     } catch (error) {
         console.error(`Error reading ${resources}`, error);
         res.status(500).send(`Error loading ${resources}`);

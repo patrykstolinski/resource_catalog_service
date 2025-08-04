@@ -27,8 +27,11 @@ app.get("/", (req,res) => {
 });
 
 // /resources node, that reads resources.JSON
-app.get("/resources", async (req,res) => {    
+app.get("/resources", async (req,res) => {
+
+    
     try {
+
         const json = await loadResources();
         res.json(json);
     } catch (error) {
