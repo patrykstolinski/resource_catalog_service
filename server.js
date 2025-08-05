@@ -6,6 +6,7 @@ const hostname = "127.0.0.1";
 
 const app = express();
 
+app.use(express.json());
 
 // Middleware to log all requests
 app.use((req, res, next) => {
@@ -14,9 +15,8 @@ app.use((req, res, next) => {
 });
 
 // Middleware to parse JSON object
-app.use(express.json());
 
-// main node
+// /resources Node
 app.use("/resources", resourcesRouter);
 
 app.listen(port, () => {

@@ -1,7 +1,8 @@
 import express from "express";
 import path from "path";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 import { fileURLToPath } from "url";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const router = express.Router();
@@ -14,7 +15,7 @@ const resourcesPath = path.join(__dirname, "../data/resources.json");
 async function loadData(data) {
     const file_data = await readFile(data, "utf-8");
     return JSON.parse(file_data);
-}
+};
 
 // GET /resources
 router.get("/", async (req, res) => {
@@ -44,9 +45,32 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /resources
-router.post("/", (req, res) => {
-    console.log("POST", req.body);
-    res.status(201).json({ message: "Resource received", data: req.body });
+router.post("/", async (req, res) => {
+    const {type, title} = req.body; 
+
+    if (!title || !type) {
+        return res.status(400).json({error: `Missing required fields - title or type.`}); 
+    }; // check if title or type is missing
+
+    try {
+        const data = await loadData(resourcesPath);
+        const auth = uuidv4(); // generate random Author ID too
+        // create new resource
+        const newResource = {
+            id: uuidv4(),
+            title,
+            type,
+            authorId: auth.slice(0,7),
+            url: `http://example.com/${title.replace(/\s+/g,"")}`,
+        }
+        data.push(newResource); // append to the end of the array 
+        await writeFile(resourcesPath, JSON.stringify(data, null, 2), "utf-8"); // save back to file
+        console.log(newResource);
+        res.status(201).json({ message: "Resource received", data: newResource });
+    } catch {
+        console.error("Error writing to file.", error);
+        res.status(500).json({error: `Failed to create new resource.`});
+    }
 });
 
 export default router;

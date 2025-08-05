@@ -1,23 +1,65 @@
 [
-    {
-        "id": "1",
-        "title": "Einführung in die Webentwicklung",
-        "type": "Kurs",
-        "authorId": "a1b2c3d4",
-        "url": "http://example.com/webdev"
-    },
-    {
-        "id": "2",
-        "title": "Express.js-Tutorial",
-        "type": "Video",
-        "authorId": "a1b2c3d4",
-        "url": "http://example.com/expressjs"
-    },
-    {
-        "id": "3",
-        "title": "Node.js-Tutorial",
-        "type": "Video",
-        "authorId": "a1b2c3d4",
-        "url": "http://example.com/Nodejs"
-    }
+  {
+    "id": "1",
+    "title": "Einführung in die Webentwicklung",
+    "type": "Kurs",
+    "authorId": "a1b2c3d4",
+    "url": "http://example.com/webdev"
+  },
+  {
+    "id": "2",
+    "title": "Express.js-Tutorial",
+    "type": "Video",
+    "authorId": "a1b2c3d4",
+    "url": "http://example.com/expressjs"
+  },
+  {
+    "id": "3",
+    "title": "Node.js-Tutorial",
+    "type": "Video",
+    "authorId": "a1b2c3d4",
+    "url": "http://example.com/Nodejs"
+  },
+  {
+    "id": "43439a57-d38f-4991-99f3-02a7b6e7168e",
+    "title": "New Resource",
+    "type": "Book",
+    "authorId": "50902df",
+    "url": "http://example.com/NewResource"
+  },
+  {
+    "id": "8ef5312c-2060-463d-9029-2e2b6e93628a",
+    "title": "New Resource 2",
+    "type": "Book 2",
+    "authorId": "9252404",
+    "url": "http://example.com/NewResource2"
+  },
+  {
+    "id": "95ab1cd5-0f77-49c6-a462-3ab699b45e1f",
+    "title": "New Resource 3",
+    "type": "Book 3",
+    "authorId": "ca2b399",
+    "url": "http://example.com/NewResource3"
+  },
+  {
+    "id": "289edf7a-e434-4841-b66d-ad8b5286907c",
+    "title": "New Resource 4",
+    "type": "Book 4",
+    "authorId": "80b9edd",
+    "url": "http://example.com/NewResource4"
+  },
+  {
+    "id": "5426e21f-2c25-4f9a-9949-6b91909ab9f2",
+    "title": "New Resource 4",
+    "type": "Book 4",
+    "authorId": "a4aaacf",
+    "url": "http://example.com/NewResource4"
+  },
+  {
+    "id": "6a0afa5e-80ae-4c2e-9a6c-c06861ebdf23",
+    "title": "New Resource 4",
+    "type": "Book 4",
+    "authorId": "28fb480",
+    "url": "http://example.com/NewResource4"
+  }
 ]
