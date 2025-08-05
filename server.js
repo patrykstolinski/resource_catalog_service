@@ -22,6 +22,15 @@ async function loadData(data) {
     return JSON.parse(file_data);
 }
 
+// Middleware to log all requests
+app.use((req, res, next) => {
+    console.log(`${req.method}: ${req.path}`);
+    next();
+});
+
+// Middleware to parse JSON object
+app.use(express.json());
+
 // main node
 app.get("/", (req,res) => {
     res.send("Welcome to Resource Catalog");
@@ -45,16 +54,15 @@ app.get("/resources/:id", async (req,res) => {
         const resourceId = req.params.id;// req.params look for key (in this case "id") and assigns the value to resourceId        
         const resource = json.find(item => item.id === resourceId);// arrow function - for each item, check if item.id is the same as resourceId         
         if(!resource) {
-            return res.status(404).send(`Resource with ID "${resourceId}" not found.`)
+            return res.status(404).json({ error: `Resource with ID ${resourceId} not found.`});
         }; // if no resource found, throw 404        
         res.json(resource);// return the single resource 
 
     } catch (error) {
         console.error(`Error reading ${resources}`, error);
-        res.status(500).send(`Error loading ${resources}`);
+        res.status(500).json({error: `Error loading ${resources}`});
     }
 });
-
 
 
 app.listen(port, () => {
