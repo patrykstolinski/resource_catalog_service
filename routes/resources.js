@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from 'uuid';
 
 
+
 const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,18 +20,19 @@ async function loadData(data) {
 };
 
 // GET /resources
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
     try {
         const json = await loadData(resourcesPath);
         res.json(json);
     } catch (error) {
         console.error(`Error reading ${resourcesPath}`, error);
-        res.status(500).json({ error: `Error loading ${resourcesPath}` });
+        // res.status(500).json({ error: `Error loading ${resourcesPath}` });
+        next(error);
     }
 });
 
 // GET Search resources
-router.get("/search", async (req,res) => {
+router.get("/search", async (req,res, next) => {
     try {
         const resources = await loadData(resourcesPath); // load resources
         const query = req.query; // load queries into query
@@ -46,12 +48,13 @@ router.get("/search", async (req,res) => {
         res.json(filteredResources);
     } catch (error) {
         console.error("Error loading searched resource.", error);
-        res.status(500).json({error: `Internal server error.`});
+        // res.status(500).json({error: `Internal server error.`});
+        next(error);
     }
 });
 
 // GET /resources/:id
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
     try {
         const json = await loadData(resourcesPath);
         const resourceId = req.params.id;
@@ -62,13 +65,14 @@ router.get("/:id", async (req, res) => {
         res.json(resource);
     } catch (error) {
         console.error(`Error reading ${resourcesPath}`, error);
-        res.status(500).json({ error: `Error loading ${resourcesPath}` });
+        // res.status(500).json({ error: `Error loading ${resourcesPath}` });
+        next(error);
     }
 });
 
 
 // PUT /resources/:id
-router.put("/:id", async(req, res) => {
+router.put("/:id", async(req, res, next) => {
     const newData = req.body;    
     const resourceId = req.params.id; // which ID are we looking for
     
@@ -96,12 +100,13 @@ router.put("/:id", async(req, res) => {
 
     } catch (error) {
         console.error("Error updating resource:", error);
-        res.status(500).json({ error: `Failed to update resource with ID ${resourceId}.`});
+        // res.status(500).json({ error: `Failed to update resource with ID ${resourceId}.`});
+        next(error);
     }
 });
 
 // POST /resources
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
     const newData = req.body; 
 
     if (!newData.title || !newData.type) {
@@ -129,7 +134,8 @@ router.post("/", async (req, res) => {
         res.status(201).json({ message: "Resource received", data: newResource }); // send it back, along with 201
     } catch (error) {
         console.error("Error writing to file.", error);
-        res.status(500).json({error: `Failed to create new resource.`});
+        // res.status(500).json({error: `Failed to create new resource.`});
+        next(error);
     }
 });
 
@@ -152,7 +158,8 @@ router.delete("/:id", async (req, res) => {
 
     } catch (error) {
         console.error("Error deleting the resource:", error);
-        res.status(500).json({error: "Internal server error"});
+        // res.status(500).json({error: "Internal server error"});
+        next(error);
     }
 });
 

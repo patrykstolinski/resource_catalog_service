@@ -1,6 +1,8 @@
 import express from "express";
 import resourcesRouter from "./routes/resources.js";
 import dotenv from "dotenv";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { requestLogger } from "./middleware/logger.js";
 
 dotenv.config();
 const port = process.env.PORT || 5001;
@@ -10,21 +12,15 @@ const app = express();
 
 // --------------- Middleware ---------------
 app.use(express.json());
+app.use(requestLogger);
 
-// Middleware to log all requests
-app.use((req, res, next) => {
-    console.log(`${req.method}: ${req.path}`);
-    next();
-});
+
 
 // routes 
 app.use("/resources", resourcesRouter);
 
-// Error handling
-app.use((err, req,res,next) => {
-    console.error(err.stack)
-    res.status(500).json({error: "Internal Server Error. Something broke."});
-});
+// Middleware for error handling
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server listening at http://${hostname}:${port}`);
