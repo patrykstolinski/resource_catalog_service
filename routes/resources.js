@@ -75,7 +75,7 @@ router.put("/:id", async(req, res) => {
     if (!newData || Object.keys(newData).length === 0) {
         return res.status(400).json({error: "Body is empty."});
     };
-    
+
     try {
         const {id, ...rest} = newData; // make sure to discard ID if PUT sends it in body
         const json = await loadData(resourcesPath); // load all the data from resources.json
@@ -144,7 +144,7 @@ router.delete("/:id", async (req, res) => {
             return res.status(404).json({error: `Resource with ID "${resourceId}" was not found.`});
         }
 
-        resources.splice(index, 1); // splice the array to remove the entry, save in another variable
+        resources.splice(index, 1); // splice the array to remove the entry
         await writeFile(resourcesPath, JSON.stringify(resources, null, 2), "utf-8");
         console.log(`Resource with ID ${resourceId} has been deleted.`);
         res.status(204).end();
