@@ -21,10 +21,10 @@ app.use((req, res, next) => {
 app.use("/resources", resourcesRouter);
 
 // Error handling
-// app.use((err, req,res,next) => {
-//     console.error(err.stack)
-//     res.status(500).json({error: "Internal Server Error. Something broke."});
-// });
+app.use((err, req,res,next) => {
+    console.error(err.stack)
+    res.status(500).json({error: "Internal Server Error. Something broke."});
+});
 
 app.listen(port, () => {
     console.log(`Server listening at http://${hostname}:${port}`);
