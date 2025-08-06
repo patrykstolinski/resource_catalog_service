@@ -6,7 +6,7 @@ const hostname = "127.0.0.1";
 
 const app = express();
 
-// Middleware 
+// --------------- Middleware ---------------
 app.use(express.json());
 
 // Middleware to log all requests
@@ -17,6 +17,12 @@ app.use((req, res, next) => {
 
 // routes 
 app.use("/resources", resourcesRouter);
+
+// Error handling
+app.use((err, req,res,next) => {
+    console.error(err.stack)
+    res.status(500).json({error: "Internal Server Error. Something broke."});
+});
 
 app.listen(port, () => {
     console.log(`Server listening at http://${hostname}:${port}`);
