@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/patrykstolinski/resource_catalog_service#readme",
   "dependencies": {
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
     "uuid": "^11.1.0"
