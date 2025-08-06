@@ -103,11 +103,33 @@ router.post("/", async (req, res) => {
         await writeFile(resourcesPath, JSON.stringify(data, null, 2), "utf-8"); // save back to file
         console.log(newResource); // log new resource
         res.status(201).json({ message: "Resource received", data: newResource }); // send it back, along with 201
-    } catch {
+    } catch (error) {
         console.error("Error writing to file.", error);
         res.status(500).json({error: `Failed to create new resource.`});
     }
 });
 
+// DEL resource
+router.delete("/:id", async (req, res) => {
+    const resourceId = req.params.id; // assign the ID we look for to resourceId 
+
+    try {
+        const resources = await loadData(resourcesPath); // load resources
+        const index = resources.findIndex(entry => entry.id === resourceId); // look for index in array
+
+        if (index === -1) {
+            return res.status(404).json({error: `Resource with ID "${resourceId}" was not found.`});
+        }
+
+        resources.splice(index, 1); // splice the array to remove the entry, save in another variable
+        await writeFile(resourcesPath, JSON.stringify(resources, null, 2), "utf-8");
+        console.log(`Resource with ID ${resourceId} has been deleted.`);
+        res.status(204).end();
+
+    } catch (error) {
+        console.error("Error deleting the resource:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+});
 
 export default router;
