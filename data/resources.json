@@ -89,5 +89,12 @@
     "type": "Book 8",
     "authorId": "a4d5ea5",
     "url": "http://example.com/NewResource8"
+  },
+  {
+    "id": "8a690387-a6de-419c-9c79-6be730ffe92e",
+    "title": "Andreas's Bibel",
+    "type": "video",
+    "authorId": "6d0c17f",
+    "url": "http://example.com/Andreas'sBibel"
   }
 ]

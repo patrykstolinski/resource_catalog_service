@@ -35,7 +35,7 @@ router.get("/search", async (req,res) => {
         const resources = await loadData(resourcesPath); // load resources
         const query = req.query; // load queries into query
 
-        let filteredResources = resources; 
+        let filteredResources = resources;
 
         Object.keys(query).forEach( key => { // for function that runs for each key in query
             const value = query[key];
@@ -85,8 +85,9 @@ router.put("/:id", async(req, res) => {
         }
         // build a new Object
         const updatedResource = {
-            id: resourceId,
-            ...rest
+            ...json[index],
+            ...rest,
+            id: resourceId
         };
         json[index] = updatedResource; // update the thing under the index with new object
         await writeFile(resourcesPath, JSON.stringify(json, null, 2), "utf-8"); // write the update in the file
