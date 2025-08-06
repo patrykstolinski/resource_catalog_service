@@ -29,6 +29,27 @@ router.get("/", async (req, res) => {
     }
 });
 
+// GET Search resources
+router.get("/search", async (req,res) => {
+    try {
+        const resources = await loadData(resourcesPath); // load resources
+        const query = req.query; // load queries into query
+
+        let filteredResources = resources; 
+
+        Object.keys(query).forEach( key => { // for function that runs for each key in query
+            const value = query[key];
+            filteredResources = filteredResources.filter(resource => {
+                return resource[key] && resource[key].toString().toLowerCase() === value.toLowerCase(); // check if key from query has anything in it, if yes, compare to the value it found
+            });
+        });
+        res.json(filteredResources);
+    } catch (error) {
+        console.error("Error loading searched resource.", error);
+        res.status(500).json({error: `Internal server error.`});
+    }
+});
+
 // GET /resources/:id
 router.get("/:id", async (req, res) => {
     try {
@@ -45,16 +66,18 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+
 // PUT /resources/:id
 router.put("/:id", async(req, res) => {
     const newData = req.body;    
-    const {id, ...rest} = newData; // make sure to discard ID if PUT sends it in body
     const resourceId = req.params.id; // which ID are we looking for
-
-    if (!rest.title || !rest.type) {
-        return res.status(400).json({error: `Missing required fields - "title" or "type".`});
+    
+    if (!newData || Object.keys(newData).length === 0) {
+        return res.status(400).json({error: "Body is empty."});
     };
+    
     try {
+        const {id, ...rest} = newData; // make sure to discard ID if PUT sends it in body
         const json = await loadData(resourcesPath); // load all the data from resources.json
         const index = json.findIndex(entry => entry.id === resourceId); // find the id in the array (if none found, it gives -1 back)
         if (index === -1) {

@@ -23,7 +23,7 @@
   {
     "id": "43439a57-d38f-4991-99f3-02a7b6e7168e",
     "title": "New Resource",
-    "type": "Book",
+    "type": "Video",
     "authorId": "50902df",
     "url": "http://example.com/NewResource"
   },
