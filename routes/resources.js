@@ -3,6 +3,7 @@ import path from "path";
 import { readFile, writeFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from 'uuid';
+import { validateResource } from "../middleware/validation.js";
 
 
 
@@ -106,12 +107,12 @@ router.put("/:id", async(req, res, next) => {
 });
 
 // POST /resources
-router.post("/", async (req, res, next) => {
+router.post("/", validateResource , async (req, res, next) => {
     const newData = req.body; 
-
-    if (!newData.title || !newData.type) {
-        return res.status(400).json({error: `Missing required fields - "title" or "type".`}); 
-    }; // check if title or type is missing
+    //// VALIDATION FROM MIDDLEWARE validation.js
+    // if (!newData.title || !newData.type) {
+    //     return res.status(400).json({error: `Missing required fields - "title" or "type".`}); 
+    // }; // check if title or type is missing
 
     try {
         const data = await loadData(resourcesPath);

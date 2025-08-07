@@ -103,5 +103,12 @@
     "type": "book",
     "authorId": "6d0c17f",
     "url": "http://example.com/Andreas'sBibel"
+  },
+  {
+    "id": "42c9f0b7-4918-4b4b-9dd5-aa7e05657d58",
+    "title": "New Resource 9",
+    "type": "bibel",
+    "authorId": "fbb2d9a",
+    "url": "http://example.com/NewResource9"
   }
 ]
