@@ -92,8 +92,15 @@
   },
   {
     "id": "8a690387-a6de-419c-9c79-6be730ffe92e",
-    "title": "Andreas's Bibel",
+    "title": "Bibel",
     "type": "video",
+    "authorId": "6d0c17f",
+    "url": "http://example.com/Andreas'sBibel"
+  },
+  {
+    "id": "8a690387-a6de-419c-9c79-6be730ffe923",
+    "title": "Bibel",
+    "type": "book",
     "authorId": "6d0c17f",
     "url": "http://example.com/Andreas'sBibel"
   }
