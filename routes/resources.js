@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import { readFile, writeFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { v4 as uuidv4 } from 'uuid';
 import { validateResource } from "../middleware/validation.js";
@@ -18,12 +17,6 @@ const resourcesPath = path.join(__dirname, "../data/resources.json");
 const ratingsPath = path.join(__dirname, "../data/ratings.json");
 const feedbackPath = path.join(__dirname,"../data/feedback.json");
 
-// helper function to load any JSON data from any file
-// async function loadData(data) {
-//     const file_data = await readFile(data, "utf-8");
-//     return JSON.parse(file_data);
-// };
-
 // GET /resources
 router.get("/", async (req, res, next) => {
     try {
@@ -31,7 +24,6 @@ router.get("/", async (req, res, next) => {
         res.json(json);
     } catch (error) {
         console.error(`Error reading ${resourcesPath}`, error);
-        // res.status(500).json({ error: `Error loading ${resourcesPath}` });
         next(error);
     }
 });
