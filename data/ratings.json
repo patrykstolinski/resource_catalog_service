@@ -1,0 +1,40 @@
+[
+  {
+    "id": "9a902419-64c5-442e-a93d-17e35ac20ab0",
+    "resourceId": "2",
+    "ratingValue": 5,
+    "userId": "anonymous"
+  },
+  {
+    "id": "5cf7c3cb-3e86-49dc-990a-21bc5e88c3ed",
+    "resourceId": "3",
+    "ratingValue": 5,
+    "userId": "anonymous"
+  },
+  {
+    "id": "b9d248e2-0ef9-49ad-9524-4bad2cf8436c",
+    "resourceId": "2",
+    "ratingValue": 3,
+    "userId": "anonymous"
+  },
+  {
+    "id": "f0c4266d-04f1-49f8-92dd-a1657b1dade7",
+    "resourceId": "2",
+    "ratingValue": 5,
+    "userId": "anonymous"
+  },
+  {
+    "id": "5a781",
+    "resourceId": "2",
+    "ratingValue": 5,
+    "userId": "anonymous",
+    "timestamp": "[8.8.2025, 11:03:25]"
+  },
+  {
+    "id": "c0038",
+    "resourceId": "3",
+    "ratingValue": 4,
+    "userId": "anonymous",
+    "timestamp": "[8.8.2025, 12:12:00]"
+  }
+]
